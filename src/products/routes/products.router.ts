@@ -1,8 +1,9 @@
 import { BaseRouter } from '../../shared/router/index.router'
 import { ProductController } from '../controllers/products.controllers'
-export class ProductRouter extends BaseRouter<ProductController> {
+import { ProductMiddleware } from '../middlewares/products.middleware';
+export class ProductRouter extends BaseRouter<ProductController,ProductMiddleware> {
   constructor() {
-    super(ProductController);
+    super(ProductController,ProductMiddleware);
   }
   routes(): void{
     this.router.get('/products',(req,res) => {
@@ -13,7 +14,7 @@ export class ProductRouter extends BaseRouter<ProductController> {
       this.controller.getProductById(req,res)
     }
     )
-    this.router.post('/createProduct',(req,res) => {
+    this.router.post('/createProduct',(req,res,next)=>this.middleware.ProductValidator(req,res,next),(req,res) => {
       this.controller.createProduct(req,res)
     }
     )

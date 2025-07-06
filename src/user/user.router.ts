@@ -1,8 +1,9 @@
 import { BaseRouter } from "../shared/router/index.router";
 import { UserController } from "./controllers/user.controllers";
-export class UserRouter extends BaseRouter<UserController> {
+import { UserMiddleware } from "./middlewares/user.middleware";
+export class UserRouter extends BaseRouter<UserController, UserMiddleware> {
   constructor() {
-    super(UserController);
+    super(UserController, UserMiddleware);
   }
   routes(): void{
     this.router.get('/users',(req,res) => {
@@ -13,7 +14,7 @@ export class UserRouter extends BaseRouter<UserController> {
       this.controller.getUserById(req,res)
     }
     )
-    this.router.post('/createUser',(req,res) => {
+    this.router.post('/createUser',(req,res,next)=>this.middleware.UserValidator(req,res,next),(req,res) => {
       this.controller.createUser(req,res)
     }
     )
@@ -23,6 +24,10 @@ export class UserRouter extends BaseRouter<UserController> {
     )
     this.router.delete('/deleteUser/:id',(req,res) => {
       this.controller.deleteUser(req,res)
+    }
+    )
+    this.router.get('/RelationUser/:id',(req,res) => {
+      this.controller.getUserRelation(req,res)
     }
     )
   }

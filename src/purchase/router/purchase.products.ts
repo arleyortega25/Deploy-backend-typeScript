@@ -1,8 +1,9 @@
 import { BaseRouter } from "../../shared/router/index.router";
 import { PurchaseProductController } from "../controllers/purchase.products.controllers";
-export class PurchaseProductRouter extends BaseRouter<PurchaseProductController> {
+import { PurchaseProductMiddleware } from "../middlewares/purchase.products.middleware";
+export class PurchaseProductRouter extends BaseRouter<PurchaseProductController,PurchaseProductMiddleware> {
   constructor() {
-    super(PurchaseProductController);
+    super(PurchaseProductController,PurchaseProductMiddleware);
   }
   routes(): void{
     this.router.get('/purchaseProducts',(req,res) => {
@@ -13,7 +14,7 @@ export class PurchaseProductRouter extends BaseRouter<PurchaseProductController>
       this.controller.getPurchaseProductById(req,res)
     }
     )
-    this.router.post('/createPurchaseProduct',(req,res) => {
+    this.router.post('/createPurchaseProduct',(req,res,next)=>this.middleware.PurchaseProductValidator(req,res,next),(req,res) => {
       this.controller.createPurchaseProduct(req,res)
     }
     )

@@ -19,7 +19,7 @@ export class UserEntity extends BaseEntity {
   @Column()
   email!: string;
   
-  @Column()
+  @Column({select: false})
   password!: string;
   @Column({type:"enum", enum:RoleType,nullable:false})
   role!:RoleType

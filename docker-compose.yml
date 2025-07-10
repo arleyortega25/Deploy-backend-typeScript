@@ -12,6 +12,6 @@ services:
       MYSQL_USER: 4rl3y
       MYSQL_ROOT_PASSWORD: 53cur3@p455w0rd
       MYSQL_PASSWORD: 53cur3@p455w0rd
-    
-        
+
+
       

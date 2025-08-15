@@ -12,7 +12,7 @@ import { CustomerRouter } from "./customer/routes/customer.routes";
 import { LoginStrategy } from "./auth/strategies/login.strategy";
 import { JwtStrategy } from "./auth/strategies/jwt.strategy";
 import { AuthRouter } from "./auth/routers/auth.router";
-//main
+//m
 
 class ServerBoostrap extends ConfigServer {
   public app: express.Application = express();

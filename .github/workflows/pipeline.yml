@@ -59,5 +59,4 @@ jobs:
       - name: Deploy Docker Compose and start in EC2
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_PUBLIC_IP }} \
-            "cd /home/ec2-user/Deploy-backend-typeScript  && git pull origin main && npm install && docker compose up -d --build \
-            echo "Deployment executed"
+            "cd /home/ec2-user/Deploy-backend-typeScript  && git pull origin main && npm install && docker compose up -d --build && echo 'Deployment executed'"
